@@ -1,0 +1,23 @@
+# Images & VM disks
+*.qcow2
+*.img
+*.iso
+*.vmdk
+
+# Docker & Container artifacts
+*.tar
+*.gz
+
+# Python & Node
+__pycache__/
+*.pyc
+node_modules/
+
+# Secrets
+.env
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
