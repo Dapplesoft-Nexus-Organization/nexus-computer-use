@@ -4,7 +4,19 @@ This document serves as the master reference, binding architectural blueprint, a
 
 ---
 
-## 1. Universal AI Git & Commit Policy (STRICT - MUST FOLLOW)
+## 1. Ecosystem Context & Multi-Repository Boundary
+
+This repository is an **independent, isolated container and VM automation component** of the **Dapplesoft Nexus Ecosystem** (`Dapplesoft-Nexus-Organization`).
+
+### Repository Responsibility & Scope
+
+| What Belongs Here (`nexus-computer-use`) | What Belongs in Other Repositories |
+|---|---|
+| • Ephemeral E0 Docker sandbox execution containers<br>• E1 Lab VM templates (QEMU / KVM, cloud-init)<br>• Sandboxed Playwright browser runners & automation scripts<br>• X11 / Wayland VNC capture streaming gateways & noVNC endpoints<br>• Network egress filtering rules for sandboxes | • **Web Console UI & Core Modular Monolith**: Belongs in `dapplesoft-nexus`<br>• **Host Device Agent (Windows/Linux service)**: Belongs in `nexus-device-agent`<br>• **Declarative Policies & Prompt Registry**: Belongs in `nexus-governance`<br>• **Model Evaluation & Skill Learning**: Belongs in `nexus-learning`<br>• **Production Deployment Compose**: Belongs in `nexus-deployment` |
+
+---
+
+## 2. Universal AI Git & Commit Policy (STRICT - MUST FOLLOW)
 
 ### A. Never Commit (`git commit` is FORBIDDEN for AI)
 - The AI assistant **MUST NEVER** execute `git commit`.
@@ -16,8 +28,7 @@ This document serves as the master reference, binding architectural blueprint, a
 - Never publish branches or code online to GitHub. All modifications must stay strictly in the local workspace.
 
 ### C. Git Branching & Naming Standards
-- **Feature Branch Prefix**: MUST use the full prefix **`feature/`** (lowercase), followed by kebab-case (e.g., `feature/e0-docker-sandbox`, `feature/vm-gateway`).
-  - **STRICTLY PROHIBITED**: Never use shorthand prefixes like `feat/`. Always use `feature/`.
+- **Feature Branch Prefix**: MUST use the full prefix **`feature/`** (lowercase), followed by kebab-case (e.g., `feature/e0-docker-sandbox`, `feature/vm-gateway`). Never use shorthand `feat/`.
 - **Bugfix Branch Prefix**: Use `fix/<issue-name>` or `feature/<issue-name>`.
 - **Base Branch**: Every feature or fix branch MUST branch directly off **`dev`** (never from `main`).
 - **Workflow**: Branch off `dev` -> Perform work -> Leave changes uncommitted for user review -> User manually commits -> User pushes to `origin/feature/<branch-name>` -> PR targets `dev`.
@@ -31,7 +42,7 @@ This document serves as the master reference, binding architectural blueprint, a
 
 ---
 
-## 2. Directory Structure
+## 3. Directory Structure
 
 ```text
 nexus-computer-use/
@@ -47,18 +58,3 @@ nexus-computer-use/
 │   └── desktop/                # X11 / Wayland VNC capture stream
 └── gateway/                    # Network egress security filtering
 ```
-
----
-
-## 3. Principles Transferred from eShop & SRV
-
-1. **Security & Sandbox Isolation**:
-   - Sandboxes must be completely isolated from production host networks. Egress traffic must be filtered to prevent unauthorized outbound connections.
-2. **Zero Plaintext Secrets**:
-   - Sandboxes must receive short-lived credentials dynamically; no static secrets or tokens embedded in container images.
-3. **Immutability & Ephemeral Teardown**:
-   - Sandbox environments must be ephemeral and cleanly torn down after each execution, leaving zero residual state.
-
----
-
-*Authorized by Dapplesoft Architecture & Nexus Governance Council*
